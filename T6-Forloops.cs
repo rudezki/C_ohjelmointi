@@ -12,11 +12,15 @@ namespace ConsoleApp10
 		{
 			Console.WriteLine("Anna luku");
 			string syote = Console.ReadLine();
-			int i = int.Parse(syote);
-			int a;
-			for (a = 1; a < 11; a++)
+			int a = int.Parse(syote);
+			int i;
+			int k;
+			Console.WriteLine("Antamasi luku on {0}", a);
+			for (i = 0; i <= a; i++)
 			{
-				Console.WriteLine("{0} * {1} = {2}   {0} / {1} = {3}  {0} % {1} = {4} ", a, i, i * a, i / a, i % a);
+				for (k = 1; k <= i; ++k)
+					Console.Write(k);
+				Console.Write("\n");
 			}
 			Console.ReadKey();
 		}
