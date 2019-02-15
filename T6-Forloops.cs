@@ -14,9 +14,9 @@ namespace ConsoleApp10
 			string syote = Console.ReadLine();
 			int i = int.Parse(syote);
 			int a;
-			for (a = 10; a > 0; a--)
+			for (a = 1; a < 11; a++)
 			{
-				Console.WriteLine("{0}", i * a);
+				Console.WriteLine("{0} * {1} = {2}   {0} / {1} = {3}  {0} % {1} = {4} ", a, i, i * a, i / a, i % a);
 			}
 			Console.ReadKey();
 		}
