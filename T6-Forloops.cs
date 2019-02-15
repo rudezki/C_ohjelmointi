@@ -10,10 +10,13 @@ namespace ConsoleApp10
 	{
 		static void Main(string[] args)
 		{
-			int i;
-			for (i = 1; i <= 10; i++)
+			Console.WriteLine("Anna luku");
+			string syote = Console.ReadLine();
+			int i = int.Parse(syote);
+			int a = 1;
+			for (a = 1; a <= 10; a++)
 			{
-				Console.WriteLine("{0}", i);
+				Console.WriteLine("{0}", i * a);
 			}
 			Console.ReadKey();
 		}
