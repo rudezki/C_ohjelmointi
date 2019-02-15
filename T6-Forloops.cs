@@ -13,8 +13,8 @@ namespace ConsoleApp10
 			Console.WriteLine("Anna luku");
 			string syote = Console.ReadLine();
 			int i = int.Parse(syote);
-			int a = 1;
-			for (a = 1; a <= 10; a += 2)
+			int a;
+			for (a = 10; a > 0; a--)
 			{
 				Console.WriteLine("{0}", i * a);
 			}
