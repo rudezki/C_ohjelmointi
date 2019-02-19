@@ -11,11 +11,16 @@ namespace _7_3_array
 		static void Main(string[] args)
 		{
 			string syote;
+			int addProduct;
+			Console.WriteLine("Kuinka monta tuotetta lisätään?");
+			syote = Console.ReadLine();
+			addProduct = int.Parse(syote);
 			Console.OutputEncoding = Encoding.UTF8;
-			double[] tuoteHinta = new double[3];
-			int[] tuoteLkm = new int[3];
-			string[] tuoteNimi = new string[3];
-			for (int i = 0; i < tuoteNimi.Length; i++)
+			double[] tuoteHinta = new double[addProduct];
+			int[] tuoteLkm = new int[addProduct];
+			string[] tuoteNimi = new string[addProduct];
+
+			for (int i = 0; i < addProduct; i++)
 			{
 				Console.WriteLine("Anna tuotteen {0} nimi:", i+1);
 				syote = Console.ReadLine();
