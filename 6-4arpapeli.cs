@@ -11,11 +11,12 @@ namespace _6_4forloop
 		static void Main(string[] args)
 		{
 			string syote;
-			int arvaus;
-			int oikea = 45;
-			for (int i = 0; i < 5; i++)
+			int arvaus, oikea;
+			Random satunnainen = new Random();
+			oikea = satunnainen.Next(1, 101);
+			for (int i = 0; i < 21; i++)
 			{
-				Console.WriteLine("Anna luku");
+				Console.WriteLine("Anna luku 1:n ja 100:n väliltä");
 				syote = Console.ReadLine();
 				arvaus = int.Parse(syote);
 				if (arvaus == oikea)
@@ -24,12 +25,14 @@ namespace _6_4forloop
 					Console.ReadKey();
 					Environment.Exit(-1);
 				}
-				else
+				else if (i == 20)
 				{
+					Console.WriteLine("Et onnistunut, luku oli {0}!", oikea);
+				}
+				else {
 					Console.WriteLine("Arvasit väärin!");
 				}
 			}
-			Console.WriteLine("5 kierrosta päättyi. Parempi onni ensi kerralla!");
 			Console.ReadKey();
 		}
 	}
