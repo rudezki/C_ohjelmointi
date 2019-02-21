@@ -11,6 +11,7 @@ namespace _10._1_lista
 		static void Main(string[] args)
 		{
 			string syote;
+			int maara;
 			List<string> lista = new List<string>();
 			Console.WriteLine("Anna nimiä (kirjoita 'quit' lopettaaksesi)");
 			for (; ;)
@@ -18,8 +19,14 @@ namespace _10._1_lista
 				syote = Console.ReadLine();
 				if (syote == "quit")
 				{
-					Console.WriteLine("\n");
-					lista.ForEach(el => Console.WriteLine(el));
+					
+					Console.WriteLine("\n Kuinka monta oppilaan nimeä haluat nähdä?");
+					syote = Console.ReadLine();
+					maara = int.Parse(syote);
+					for (int i = 0; i < maara; i++)
+					{
+						Console.WriteLine(lista[i]);
+					}
 					Console.ReadKey();
 					Environment.Exit(-1);
 				}
