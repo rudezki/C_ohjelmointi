@@ -17,8 +17,9 @@ namespace _16_merkintarkistus
 
 			syote = Console.ReadKey();
 			merkki = syote.KeyChar;
+			Console.WriteLine("\n");
 
-			if (Console.ReadKey().Key == ConsoleKey.Spacebar)
+			if (Char.IsSeparator(merkki))
 			{
 				Console.WriteLine("Syötit tyhjän merkin");
 			}
@@ -30,7 +31,7 @@ namespace _16_merkintarkistus
 			{
 				Console.WriteLine("Syötit kirjaimen: {0}", merkki);
 			}
-			else if (Char.IsPunctuation(merkki));
+			else if (Char.IsPunctuation(merkki))
 			{
 				Console.WriteLine("Syötit merkin: {0}", merkki);
 			}
