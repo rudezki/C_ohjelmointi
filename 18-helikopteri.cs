@@ -20,10 +20,11 @@ namespace _18_helikopteri
 			int laukkuMaara = 0;
 			double painoParseri;
 			Console.WriteLine("Lastataan helikopteri!");
-			try
-			{
 
-				for (; ; )
+
+			for (; ; )
+			{
+				try
 				{
 					Console.WriteLine("1.Lisää matkustaja\n2.Lisää laukku\n3. Poistu\nJäljellä oleva tila: {0} kg\nMatkustajapaikkoja jäljellä: {1}", jaljella, matkustajaTila);
 					Valikko valinta = (Valikko)int.Parse(Console.ReadLine());
@@ -43,7 +44,7 @@ namespace _18_helikopteri
 							break;
 
 						case Valikko.Laukku:
-							Console.WriteLine("Anna laukun paino:");
+							Console.WriteLine("Anna laukun paino (kg):");
 							painoParseri = double.Parse(Console.ReadLine());
 							laukunPaino = painoParseri + kokonaisPaino;
 							laukkuMaara = laukkuMaara + 1;
@@ -55,28 +56,37 @@ namespace _18_helikopteri
 								laukkuMaara = laukkuMaara - 1;
 								jaljella = jaljella + laukunPaino;
 							}
+							else if (laukunPaino < 0)
+							{
+								Console.WriteLine("Paino ei voi olla negatiivinen!");
+								kokonaisPaino = kokonaisPaino - laukunPaino;
+								laukkuMaara = laukkuMaara - 1;
+								jaljella = jaljella + laukunPaino;
+							}
 							break;
 
 						case Valikko.Poistu:
-							Console.WriteLine("Näkemiin!");
+							Console.WriteLine("Näkemiin! (enter)");
+							Console.ReadKey();
 							Environment.Exit(-1);
 							break;
 						default:
 							break;
+
 					}
 				}
-			}
-			catch (ArrayTypeMismatchException e)
-			{
-				Console.WriteLine("Virhe! {0}", e.Message);
-			}
-			catch (FormatException e)
-			{
-				Console.WriteLine("Virhe! {0}", e.Message);
-			}
-			finally
-			{
-				Console.ReadKey();
+				catch (ArrayTypeMismatchException e)
+				{
+					Console.WriteLine("Virhe! {0}", e.Message);
+				}
+				catch (FormatException e)
+				{
+					Console.WriteLine("Virhe! {0}", e.Message);
+				}
+				finally
+				{
+
+				}
 			}
 		}
 	}
