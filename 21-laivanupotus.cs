@@ -15,13 +15,10 @@ namespace _21_laivanupotus
             bool result;
 
             Random zKoordinaatti = new Random();
-            z = zKoordinaatti.Next(1, 5);
-            Random wKoordinaatti = new Random();
-            w = wKoordinaatti.Next(1, 5);
+            z = zKoordinaatti.Next(1, 6);
+            w = zKoordinaatti.Next(1, 6);
             Console.WriteLine("Asetetaan laiva 5x5-koordinaatistoon!");
 
-
-         
 
             Koordinaattix:
                 Console.WriteLine("Anna koordinaatti X");
@@ -46,6 +43,7 @@ namespace _21_laivanupotus
                 Console.WriteLine("Sinä aloitat!");
                 for (; ; )
                 {
+                    Ammu:
                     Console.WriteLine("Ammuttava koordinaatti x!");
                     syote = Console.ReadLine();
                     result  = Int32.TryParse(syote, out number);
@@ -62,12 +60,12 @@ namespace _21_laivanupotus
                     } else if (x1 < 1 || y1 < 1 || x1 > 5 || y1 > 5)
                     {
                         Console.WriteLine("Virheellinen koordinaatti");
+                      goto Ammu;
                     }
 
                         Random zAmmus = new Random();
-                        z1 = zAmmus.Next(1, 5);
-                        Random wAmmus = new Random();
-                        w1 = wAmmus.Next(1, 5);
+                        z1 = zAmmus.Next(1, 6);
+                        w1 = zAmmus.Next(1, 6);
                         Console.WriteLine("Tietokone ampui koordinaatteihin {0} ja {1}", z1, w1);
 
                     if (z1 == x && w1 == y)
