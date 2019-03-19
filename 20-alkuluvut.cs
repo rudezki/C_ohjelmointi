@@ -10,17 +10,25 @@ namespace _20_alkuluvut
 	{
 		static void Main(string[] args)
 		{
-			int luku;
-			Console.WriteLine("Anna luku!");
+			int luku, i, p;
+			Console.WriteLine("Anna luku mihin asti tulostetaan alkulukuja!");
 			luku = int.Parse(Console.ReadLine());
 
-			if (luku % 2 == 0)
+			for (i = 2; i <= luku; i++)
 			{
-				Console.WriteLine("Numero ei ole alkuluku!");
-			} else if (luku % 2 > 0)
-			{
-				Console.WriteLine("Numero on alkuluku!");
+				for (p = 2; p <= i; p++)
+				{
+					if (i % p == 0)
+					{
+						break;
+					}
+				}
+				if (i == p)
+				{
+					Console.WriteLine("{0}, ", i);
+				}
 			}
+
 			Console.ReadKey();
 			
 			
