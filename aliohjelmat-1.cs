@@ -8,19 +8,20 @@ namespace aliohjelmat_1
 {
     class Program
     {
-        private static void Tervehdys(string kayttaja,string suku)
+        private static void Tervehdys(string kayttaja,int ika)
         {
-            Console.WriteLine("Tervetuloa ohjelmaan, {0} {1}", kayttaja, suku);
+            Console.WriteLine("Anna ikäsi");
+            ika = int.Parse(Console.ReadLine());
+            Console.WriteLine("Tervetuloa ohjelmaan, {0}, {1} vuotta", kayttaja, ika);
         }
 
         static void Main(string[] args)
         {
+            int ika =0;
             Console.WriteLine("Anna nimesi");
             string kayttaja = Console.ReadLine();
-            Console.WriteLine("Anna sukunimesi:");
-            string suku = Console.ReadLine();
 
-            Tervehdys(kayttaja, suku);
+            Tervehdys(kayttaja,ika);
             Console.ReadKey();
         }
     }
