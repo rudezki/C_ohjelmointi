@@ -8,14 +8,16 @@ namespace aliohjelmat_1
 {
     class Program
     {
-        private static void Tervehdys()
+        private static void Tervehdys(string kayttaja)
         {
-            Console.WriteLine("Tervetuloa ohjelmaan!");
+            Console.WriteLine("Tervetuloa ohjelmaan, {0}", kayttaja);
         }
 
         static void Main(string[] args)
         {
-            Tervehdys();
+            Console.WriteLine("Anna nimesi");
+            string kayttaja = Console.ReadLine();
+            Tervehdys(kayttaja);
             Console.ReadKey();
         }
     }
