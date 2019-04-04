@@ -19,11 +19,17 @@ namespace T_14_Huutokauppa
         }
             private static double HuutoKauppa(double bid)
         {
+            int i;
             Random noppa = new Random();
-            int huudot, final = 0, korotus;
+            double huudot, final = 0, korotus, korotukset = 0;
             huudot = noppa.Next(0,5);
-            korotus = noppa.Next(105, 150);
-            final = (huudot * korotus) / 100;
+            
+            for (i = 0; i < huudot; i++)
+            {
+                korotus = noppa.Next(105, 200);
+                korotukset = (korotus/100)*bid + korotukset;
+            }
+            final = korotukset;
             return final;
         }
        /* private static double Edellinen(double edellinen)
@@ -33,8 +39,9 @@ namespace T_14_Huutokauppa
         static void Main(string[] args)
         {
             bool exit = false;
-            int tavoite, valinta, i;
-            string syote;
+            int tavoite, valinta, i, myydyt = 0;
+            string syote, kalleinEsine = "paska";
+            double maxValue = double.MinValue;
 
             List<string> esineet = new List<string>();
             List<double> hinnat = new List<double>();
@@ -43,7 +50,7 @@ namespace T_14_Huutokauppa
             Console.Clear();
             do
             {
-                Console.Write("Valikko\n1. Lisää tuote\n2. Aloita huutokauppa\n3. Vaihda tavoitetta.\n4. Poistu ohjelmasta.\nNykyinen tavoite: {0}", tavoite);
+                Console.Write("Valikko\n1. Lisää tuote\n2. Aloita huutokauppa\n3. Vaihda tavoitetta.\n4. Poistu ohjelmasta.\nNykyinen tavoite: {0}\n", tavoite);
                 valinta = Read();
                 switch (valinta)
                 {
@@ -58,11 +65,35 @@ namespace T_14_Huutokauppa
                         break;
                     case 2:
 
-                        for (i = 0; i == esineet.Count; i++)
+                        for (i = 0; i < esineet.Count; i++)
                         {
-                            Console.WriteLine("Esine: {0}",esineet[i]);
-                            Console.WriteLine("Hinta: {0}",HuutoKauppa(hinnat[i]));
+                            double loppuhinta = HuutoKauppa(hinnat[i]);
+                            Console.WriteLine("Esine: {0}", esineet[i]);
+                            Console.WriteLine("Hinta: {0}", loppuhinta);
+                            if (loppuhinta > 0)
+                            {
+                                myydyt++;
+                            }
+                            Console.WriteLine("Artikkeleja myyty: {0} kpl", myydyt);
+                            if (i >= 2)
+                            {
+                                if (loppuhinta > HuutoKauppa(hinnat[i - 1]))
+                                {
+                                    Console.WriteLine("Edellinen tuote {0} on halvempi kuin uusi tuote", esineet[i-1]);
+                                }
+                                else if (hinnat[i] < HuutoKauppa(hinnat[i - 1]))
+                                {
+                                    Console.WriteLine("Edellinen tuote {0} on kalliimpi kuin uusi tuote", esineet[i-1]);
+                                }
+
+                                if (loppuhinta > maxValue)
+                                {
+                                    maxValue = loppuhinta;
+                                    kalleinEsine = esineet[i];
+                                }
+                            }
                         }
+                        Console.WriteLine("Kallein myyty artikkeli oli {0} hintaan {1}", kalleinEsine, maxValue);
                         break;
                     case 3:
                         Console.WriteLine("Syötä uusi tavoite");
