@@ -39,10 +39,11 @@ namespace T_14_Huutokauppa
         static void Main(string[] args)
         {
             bool exit = false;
-            int tavoite, valinta, i, myydyt = 0;
+            int valinta, myydyt = 0, i;
             string syote, kalleinEsine = "paska";
-            double maxValue = double.MinValue;
+            double tavoite, maxValue = double.MinValue, total = 0, jaljella;
 
+            List<double> loppuhinnat = new List<double>();
             List<string> esineet = new List<string>();
             List<double> hinnat = new List<double>();
             Console.WriteLine("Syötä huutokaupan tavoitesumma:");
@@ -50,7 +51,7 @@ namespace T_14_Huutokauppa
             Console.Clear();
             do
             {
-                Console.Write("Valikko\n1. Lisää tuote\n2. Aloita huutokauppa\n3. Vaihda tavoitetta.\n4. Poistu ohjelmasta.\nNykyinen tavoite: {0}\n", tavoite);
+                Console.Write("Valikko\n1. Lisää tuote\n2. Aloita huutokauppa\n3. Vaihda tavoitetta.\n4. Tyhjennä kaikki.\n5. Poistu ohjelmasta.\nNykyinen tavoite: {0}\n", tavoite);
                 valinta = Read();
                 switch (valinta)
                 {
@@ -68,38 +69,60 @@ namespace T_14_Huutokauppa
                         for (i = 0; i < esineet.Count; i++)
                         {
                             double loppuhinta = HuutoKauppa(hinnat[i]);
+                            loppuhinnat.Add(loppuhinta);
                             Console.WriteLine("Esine: {0}", esineet[i]);
                             Console.WriteLine("Hinta: {0}", loppuhinta);
-                            if (loppuhinta > 0)
+                            if (loppuhinta != 0)
                             {
                                 myydyt++;
                             }
-                            Console.WriteLine("Artikkeleja myyty: {0} kpl", myydyt);
-                            if (i >= 2)
+                                Console.WriteLine("Artikkeleja myyty: {0} kpl", myydyt);
+                            if (i != 0)
                             {
                                 if (loppuhinta > HuutoKauppa(hinnat[i - 1]))
                                 {
                                     Console.WriteLine("Edellinen tuote {0} on halvempi kuin uusi tuote", esineet[i-1]);
                                 }
-                                else if (hinnat[i] < HuutoKauppa(hinnat[i - 1]))
+                                else if (loppuhinta < HuutoKauppa(hinnat[i - 1]))
                                 {
                                     Console.WriteLine("Edellinen tuote {0} on kalliimpi kuin uusi tuote", esineet[i-1]);
                                 }
-
+                                
+                            }
+                            total = loppuhinnat.Sum();
+                            jaljella = tavoite - total;
+                            if (tavoite > total)
+                            {
+                                Console.WriteLine("Tavoitteesta on jäljellä {0} euroa", jaljella);
+                            } 
                                 if (loppuhinta > maxValue)
-                                {
-                                    maxValue = loppuhinta;
-                                    kalleinEsine = esineet[i];
-                                }
+                            {
+                                maxValue = loppuhinta;
+                                kalleinEsine = esineet[i];
                             }
                         }
-                        Console.WriteLine("Kallein myyty artikkeli oli {0} hintaan {1}", kalleinEsine, maxValue);
+                        Console.WriteLine("Kallein myyty artikkeli oli {0} hintaan {1} euroa", kalleinEsine, maxValue);
+                        if (total < tavoite)
+                        {
+                            Console.WriteLine("Tavoite ei täyttynyt :(");
+                        } else if (tavoite <= total)
+                        {
+                            Console.WriteLine("Tavoite täyttyi!");
+                        }
                         break;
                     case 3:
                         Console.WriteLine("Syötä uusi tavoite");
                         tavoite = Read();
                         break;
                     case 4:
+                        hinnat.Clear();
+                        esineet.Clear();
+                        loppuhinnat.Clear();
+                        myydyt = 0;
+                        total = 0;
+                        jaljella = 0;
+                        break;
+                    case 5:
                         exit = true;
                         break;
                     default:
