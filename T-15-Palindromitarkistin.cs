@@ -41,7 +41,7 @@ namespace T_15_Palindromitarkistin
             Console.WriteLine("Anna lause");
             syote = Console.ReadLine();
             lause = Convert(syote);
-            Console.WriteLine(Kaannos(lause));
+            //Console.WriteLine(Kaannos(lause));
             if (lause == Kaannos(lause))
             {
                 Console.WriteLine("Lause on palindromi");
