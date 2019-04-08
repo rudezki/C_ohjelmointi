@@ -12,13 +12,13 @@ namespace T_15_Palindromitarkistin
         {
             string valmis = palindromi;
             string returni = valmis.ToLower();
-            for (int i = 0; i < valmis.Length; i++)
+            for (int i = 0; i < returni.Length; i++)
             {
-                if (char.IsPunctuation(returni[i]))
-                {
-                    //Console.WriteLine("hei");
-                    returni.Remove(i);
-                }
+                returni = returni.Replace(",", "");
+                returni = returni.Replace(".", "");
+                returni = returni.Replace("!", "");
+                returni = returni.Replace(" ", "");
+                returni = returni.Replace(";", "");
             }
             return returni;
         }
