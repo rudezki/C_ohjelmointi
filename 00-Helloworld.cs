@@ -10,7 +10,17 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Console.Write("Hello World!");
+            string name, quest, color;
+
+            Console.WriteLine("WHAT... is your name?");
+            name = Console.ReadLine();
+            Console.WriteLine("WHAT... is your quest?");
+            quest = Console.ReadLine();
+            Console.WriteLine("WHAT... is your favorite color?");
+            color = Console.ReadLine();
+
+            Console.Write("Hello, {0}, who {1} and whose favorite color is {2}!", name, quest, color);
+            Console.ReadKey();
         }
     }
 }
