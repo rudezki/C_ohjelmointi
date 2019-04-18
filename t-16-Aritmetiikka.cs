@@ -55,110 +55,152 @@ namespace T_16_Aritmetiikka
             }
             return luku;
         }
-        //Aliohjelma vastausten vertailulle
-        private static bool Arvaus(double kysymys, double vastaus)
+        private static string Kokonaisluvut(bool kokonais)
         {
+            if (kokonais==false)
+            {
+                return "Kokonaisluvut ovat pois päältä";
+            }
+            else
+            {
+                return "Kokonaisluvut ovat päällä";
+            }
+        }
+        private static string Miinus(bool minus)
+        {
+            if (minus==false)
+            {
+                return "Negatiiviset luvut ovat pois päältä";
 
-            if (kysymys == vastaus)
+            }
+            else
+            {
+                return "Negatiiviset luvut ovat päällä";
+            }
+        }
+        private static bool Kok()
+        {
+            
+            Console.WriteLine("Haluatko kutsua vain kokonaislukuja? Jos et niin kirjoita 'e'");
+            
+            if (Read() == "e")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        private static bool Neg()
+        {
+            Console.WriteLine("Haluatko kutsua pelkkiä positiivisia lukuja? Jos et niin kirjoita 'e'");
+            
+            if (Read() == "e")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        private static bool EsitäKysymysJaTarkistaVastaus(double luku1, string lasku, double luku2, string yhtakuin, double answer)
+        {
+            Console.WriteLine("{0}{1}{2}{3}?", luku1, lasku, luku2, yhtakuin);
+            Console.WriteLine(answer);
+            if (Syote() == answer)
             {
                 Console.WriteLine("Oikein!");
                 return true;
-            } else 
+            }
+            else
             {
-                Console.WriteLine("Väärin! :(");
+                Console.WriteLine("Väärin!");
                 return false;
             }
         }
-
         static void Main(string[] args)
         {
             bool exit = false, kokonais, minus;
-            double answer = 0, answer1, luku1 = 0, luku2 = 0;
+            double answer = 0, luku1 = 0, luku2 = 0;
             Random satunnainen = new Random();
             int palkinto = 0;
+            //Kokonaisluvut ja negatiiviset luvut määritellään tässä aliohjelmia hyväksikäyttäen
+            kokonais = Kok();
+            minus = Neg();
+
             //ohjelma pyörii kunnes valitaan "exit"
             do
             {
-                Console.WriteLine("Haluatko kutsua vain kokonaislukuja? Jos et niin kirjoita 'e'");
-                if (Console.ReadLine() == "e")
-                {
-                    kokonais = false;
-                } else
-                {
-                    kokonais = true;
-                }
-                Console.WriteLine("Haluatko kutsua pelkkiä positiivisia lukuja? Jos et niin kirjoita 'e'");
-                if (Console.ReadLine() == "e")
-                {
-                    minus = true;
-                } else
-                {
-                    minus = false;
-                }
-                Console.WriteLine("Haluatko laskea \n1.Yhteenlaskun \n2.Jakolaskun \n3.Erotuslaskun vai \n4.Kertolaskun \n5.Quit \nOlet voittanut {0} palkintoa tähän asti.\nKaikki luvut pyöristetään kahdenteen desimaaliin.", palkinto);
+
+                Console.WriteLine("Haluatko laskea \n1.Yhteenlaskun \n2.Jakolaskun \n3.Erotuslaskun vai \n4.Kertolaskun \n5.Määrittele kokonaisluvut ja negatiiviset luvut uudestaan\n6.Quit \nOlet voittanut {0} palkintoa tähän asti.\n{1}\n{2}", palkinto, Kokonaisluvut(kokonais), Miinus(minus));
                     switch (Syote())
                     {
                     //switch case skenaario laskuja varten
                         case 1:
-                        //Aliohjelmasta otetaan luvut
-                        luku1 = Randomizer(kokonais, minus, satunnainen);
-                        luku2 = Randomizer(kokonais, minus, satunnainen);
-                        Console.WriteLine("{0} + {1} = ?", luku1, luku2);
-                        answer = luku1 + luku2;
-                        answer = Math.Round(answer, 2, MidpointRounding.AwayFromZero);
-                        //Käytetään syötettä 
+                            //Aliohjelmasta otetaan luvut
+                            luku1 = Randomizer(kokonais, minus, satunnainen);
+                            luku2 = Randomizer(kokonais, minus, satunnainen);
+                            answer = luku1 + luku2;
 
-                        Console.WriteLine("{0}", answer);
-                        answer1 = Syote();
-                            //Aliohjelmaa käytetään arvauksen osoittamiseksi oikeaksi, palkinto lisätään, jos vastaus on oikein
-                            if (Arvaus(answer, answer1) == true)
+                            //pyöristetään kahdenteen desimaaliin
+                            answer = Math.Round(answer, 2, MidpointRounding.AwayFromZero);
+                        
+                            //Aliohjelmaa käytetään vastauksen kysymiseen, palkinto lisätään, jos vastaus on oikein
+                            bool meniOikein = EsitäKysymysJaTarkistaVastaus(luku1, " + ", luku2, " = ?", answer);
+                            if (meniOikein)
                             {
                                 palkinto++;
                             }
                             break;
                         case 2:
-                        //kutsutaan luvut aliohjelmasta
-                        luku1 = Randomizer(kokonais, minus, satunnainen);
-                        luku2 = Randomizer(kokonais, minus, satunnainen);
-                        // Jakolasku jaetaan kahden satunnaisluvun kertomalla, jotta jakolaskusta tulisi aina jokin kokonaisluku.
-                        double ans1 = luku1 * luku2;
-                        ans1 = Math.Round(ans1, 2, MidpointRounding.AwayFromZero);
-                        answer = ans1 / luku1;
-                        answer = Math.Round(answer, 2, MidpointRounding.AwayFromZero);
-                        Console.WriteLine("{0} / {1} = ?", ans1, luku1);
-                        Console.WriteLine("{0}", answer);
-                        answer1 = Syote();
-                        //Tarkistetaan vastaus, lisätään palkinto jos vastaus on oikea
-                        if (Arvaus(answer, answer1) == true)
+                            //kutsutaan luvut aliohjelmasta
+                            luku1 = Randomizer(kokonais, minus, satunnainen);
+                            luku2 = Randomizer(kokonais, minus, satunnainen);
+
+                            // Jakolasku jaetaan kahden satunnaisluvun kertomalla, jotta jakolaskusta tulisi aina jokin kokonaisluku.
+                            double ans1 = luku1 * luku2;
+                            ans1 = Math.Round(ans1, 2, MidpointRounding.AwayFromZero);
+                            answer = ans1 / luku1;
+                            answer = Math.Round(answer, 2, MidpointRounding.AwayFromZero);
+                            meniOikein = EsitäKysymysJaTarkistaVastaus(ans1, " / ", luku1, " = ?", answer);
+                            if (meniOikein) 
+                                {
+                                palkinto++;
+                                }
+                            break;
+                        case 3:
+                            luku1 = Randomizer(kokonais, minus, satunnainen);
+                            luku2 = Randomizer(kokonais, minus, satunnainen);
+                            answer = luku1 - luku2;
+                            meniOikein = EsitäKysymysJaTarkistaVastaus(luku1, " - ", luku2, " = ?", answer);
+                            if (meniOikein)
                             {
                                 palkinto++;
                             }
                             break;
-                        case 3:
-                        luku1 = Randomizer(kokonais, minus, satunnainen);
-                        luku2 = Randomizer(kokonais, minus, satunnainen);
-                        answer = luku1 - luku2;
-                        Console.WriteLine("{0} - {1} = ?", luku1, luku2);
-                        Console.WriteLine("{0}", answer);
-                        answer1 = Syote();
-                        if (Arvaus(answer, answer1) == true)
-                        {
-                            palkinto++;
-                        }
-                            break;
                         case 4:
-                        luku1 = Randomizer(kokonais, minus, satunnainen);
-                        luku2 = Randomizer(kokonais, minus, satunnainen);
-                        answer = luku1 * luku2;
-                        Console.WriteLine("{0} * {1} = ?", luku1, luku2);
-                        Console.WriteLine("{0}", answer);
-                        answer1 = Syote();
-                        if (Arvaus(answer, answer1) == true)
-                        {
-                            palkinto++;
-                        }
-                        break;
+                            luku1 = Randomizer(kokonais, minus, satunnainen);
+                            luku2 = Randomizer(kokonais, minus, satunnainen);
+                            answer = luku1 * luku2;
+                            answer = Math.Round(answer, 2, MidpointRounding.AwayFromZero);
+                            meniOikein = EsitäKysymysJaTarkistaVastaus(luku1, " * ", luku2, " = ?", answer);
+                            if (meniOikein)
+                            {
+                                palkinto++;
+                            }
+                            break;
                         case 5:
+                        
+                            //Tällä voidaan vaihtaa kokonaisluvut ja negatiiviset luvut pois päältä haluttaessa
+                            kokonais = Kok();
+                            minus = Neg();
+                            Console.Clear();
+                            break;
+                    case 6:
+
+                            //Tällä poistutaan ohjelmasta
                             exit = true;
                             break;
                         default:
