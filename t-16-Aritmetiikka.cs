@@ -105,11 +105,11 @@ namespace T_16_Aritmetiikka
                 return true;
             }
         }
-        private static bool EsitäKysymysJaTarkistaVastaus(double luku1, string lasku, double luku2, string yhtakuin, double answer)
+        private static bool EsitäKysymysJaTarkistaVastaus(string kysymys, double vastaus)
         {
-            Console.WriteLine("{0}{1}{2}{3}?", luku1, lasku, luku2, yhtakuin);
-            Console.WriteLine(answer);
-            if (Syote() == answer)
+            Console.WriteLine(kysymys);
+            Console.WriteLine(vastaus);
+            if (Syote() == vastaus)
             {
                 Console.WriteLine("Oikein!");
                 return true;
@@ -148,7 +148,7 @@ namespace T_16_Aritmetiikka
                             answer = Math.Round(answer, 2, MidpointRounding.AwayFromZero);
                         
                             //Aliohjelmaa käytetään vastauksen kysymiseen, palkinto lisätään, jos vastaus on oikein
-                            bool meniOikein = EsitäKysymysJaTarkistaVastaus(luku1, " + ", luku2, " = ?", answer);
+                            bool meniOikein = EsitäKysymysJaTarkistaVastaus(luku1 + " + " + luku2 + " = ?", answer);
                             if (meniOikein)
                             {
                                 palkinto++;
@@ -164,7 +164,7 @@ namespace T_16_Aritmetiikka
                             ans1 = Math.Round(ans1, 2, MidpointRounding.AwayFromZero);
                             answer = ans1 / luku1;
                             answer = Math.Round(answer, 2, MidpointRounding.AwayFromZero);
-                            meniOikein = EsitäKysymysJaTarkistaVastaus(ans1, " / ", luku1, " = ?", answer);
+                            meniOikein = EsitäKysymysJaTarkistaVastaus(ans1 + " / " + luku1 + " = ?", answer);
                             if (meniOikein) 
                                 {
                                 palkinto++;
@@ -174,7 +174,7 @@ namespace T_16_Aritmetiikka
                             luku1 = Randomizer(kokonais, minus, satunnainen);
                             luku2 = Randomizer(kokonais, minus, satunnainen);
                             answer = luku1 - luku2;
-                            meniOikein = EsitäKysymysJaTarkistaVastaus(luku1, " - ", luku2, " = ?", answer);
+                            meniOikein = EsitäKysymysJaTarkistaVastaus(luku1 + " - " + luku2 + " = ?", answer);
                             if (meniOikein)
                             {
                                 palkinto++;
@@ -185,7 +185,7 @@ namespace T_16_Aritmetiikka
                             luku2 = Randomizer(kokonais, minus, satunnainen);
                             answer = luku1 * luku2;
                             answer = Math.Round(answer, 2, MidpointRounding.AwayFromZero);
-                            meniOikein = EsitäKysymysJaTarkistaVastaus(luku1, " * ", luku2, " = ?", answer);
+                            meniOikein = EsitäKysymysJaTarkistaVastaus(luku1 + " * " + luku2 + " = ?", answer);
                             if (meniOikein)
                             {
                                 palkinto++;
