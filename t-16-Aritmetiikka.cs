@@ -46,6 +46,7 @@ namespace T_16_Aritmetiikka
             }
             return luku;
         }
+        //Kokonaislukujen kutsumiselle, jakolaskujen osamäärien desimaaliluvuille ja negatiiviselle tulokselle omat aliohjelmat, jotka palauttavat vain rivin tekstiä.
         private static string Kokonaisluvut(bool kokonais)
         {
             if (kokonais==false)
@@ -80,6 +81,7 @@ namespace T_16_Aritmetiikka
                 return "Vastaus voi olla negatiivinen";
             }
         }
+        //Näillä ohjelmilla voi vaihtaa toimintoja päälle/pois.
         private static bool Kok()
         {
             
@@ -120,6 +122,8 @@ namespace T_16_Aritmetiikka
                 return true;
             }
         }
+
+        //Aliohjelma kysymystä ja vastausta varten. Näyttää laskun ja tarkistaa vastauksen, sekä palauttaa oikein/väärin booleanin lisäksi.
         private static bool EsitäKysymysJaTarkistaVastaus(string kysymys, double vastaus)
         {
             Console.WriteLine(kysymys);
@@ -152,7 +156,7 @@ namespace T_16_Aritmetiikka
             do
             {
 
-                Console.WriteLine("Haluatko laskea \n1.Yhteenlaskun \n2.Jakolaskun \n3.Erotuslaskun vai \n4.Kertolaskun \n5.Määrittele kokonaisluvut ja negatiiviset luvut uudestaan\n6.Quit \nOlet voittanut {0} palkintoa tähän asti.\n{1}\n{2}", palkinto, Kokonaisluvut(kokonais), Miinus(minus));
+                Console.WriteLine("Haluatko laskea \n1.Yhteenlaskun \n2.Jakolaskun \n3.Erotuslaskun vai \n4.Kertolaskun \n5.Määrittele kokonaisluvut ja negatiiviset luvut uudestaan\n6.Quit \nOlet voittanut {0} palkintoa tähän asti.\n{1}\n{2}\n{3}", palkinto, Kokonaisluvut(kokonais), Miinus(minus), JakolaskunOsamäärä(jakolasku));
 
                 //Aliohjelmasta otetaan luvut
                 luku1 = Randomizer(kokonais, satunnainen);
@@ -174,20 +178,21 @@ namespace T_16_Aritmetiikka
 
                             //pyöristetään kahdenteen desimaaliin
                             answer = Math.Round(answer, 2, MidpointRounding.AwayFromZero);
-                        
-                            //Aliohjelmaa käytetään vastauksen kysymiseen, palkinto lisätään, jos vastaus on oikein
-                            bool meniOikein = EsitäKysymysJaTarkistaVastaus(luku1 + " + " + luku2 + " = ?", answer);
+
+                        //Aliohjelmaa käytetään vastauksen kysymiseen, palkinto lisätään, jos vastaus on oikein. Aliohjelma lukee kohdan luku1 + " + " + luku2 + " = ?" string-muuttujana, eikä aliohjelmalle lähetetä muuta tietoa kuin vastaus.
+                        bool meniOikein = EsitäKysymysJaTarkistaVastaus(luku1 + " + " + luku2 + " = ?", answer);
+
+                        //Jos vastaus on oikein, lisätään palkinto.
                             if (meniOikein)
                             {
                                 palkinto++;
                             }
                             break;
                         case 2:
-
-                            // Jakolasku jaetaan kahden satunnaisluvun kertomalla, jotta jakolaskusta tulisi aina jokin kokonaisluku.
+                        
                             if (jakolasku == true)
                             {
-                            // Arvotaan uudet luvut aliohjelmasta jos vastaus saa olla pelkkiä kokonaislukuja
+                            // Arvotaan uudet luvut aliohjelmasta jos vastaus saa olla pelkkiä kokonaislukuja. 
 
                                 luku1 = Randomizer(kokonais = true, satunnainen);
                                 luku2 = Randomizer(kokonais = true, satunnainen);
@@ -227,7 +232,7 @@ namespace T_16_Aritmetiikka
                             break;
                         case 5:
                         
-                            //Tällä voidaan vaihtaa kokonaisluvut ja negatiiviset luvut pois päältä haluttaessa
+                            //Tällä voidaan vaihtaa kokonaisluvut ja negatiiviset luvut pois päältä haluttaessa aliohjelmia käyttäen.
                             kokonais = Kok();
                             minus = Neg();
                             jakolasku = Div();
