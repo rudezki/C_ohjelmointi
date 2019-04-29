@@ -8,6 +8,7 @@ namespace T_15_Palindromitarkistin
 {
     class Program   
     {
+        //Tällä aliohjelmalla voidaan poistaa välimerkkejä ja muuntaa muuttuja pikkukirjaimiksi
         private static string Convert(string palindromi)
         {
             string valmis = palindromi;
@@ -22,8 +23,10 @@ namespace T_15_Palindromitarkistin
             }
             return returni;
         }
+        //Tämä ohjelma kääntää muuttujan toisinpäin
         private static string Kaannos(string palindromi)
         {
+            //Siirretään kirjaimet taulukkoon jotta ne voidaan kääntää.
             char[] chars = palindromi.ToCharArray();
             for (int i = 0, j = palindromi.Length - 1; i < j; i++, j--)
             {
@@ -41,7 +44,7 @@ namespace T_15_Palindromitarkistin
             Console.WriteLine("Anna lause");
             syote = Console.ReadLine();
             lause = Convert(syote);
-            //Console.WriteLine(Kaannos(lause));
+            //Verrataan lauseita keskenään
             if (lause == Kaannos(lause))
             {
                 Console.WriteLine("Lause on palindromi");
