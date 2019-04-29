@@ -9,15 +9,16 @@ namespace _21_laivanupotus
 
     class Program
     {
+        //Aliohjelma koordinaattien arpomiselle
         private static int KoneLaiva(Random noppa)
         {
             int arpa = 0;
            
             arpa = noppa.Next(1, 6);
-           // wPlane = Koordinaatti.Next(1, 6);
             
             return arpa;
         }
+        //Aliohjelma suunnan arpomiselle
         private static int Suunta(Random noppa)
         {
             int arpa = 0;
@@ -25,7 +26,7 @@ namespace _21_laivanupotus
 
             return arpa;
         }
-
+        //Aliohjelma int-lukujen syöttämiselle
         private static int Read()
         {
             bool result;
@@ -38,12 +39,17 @@ namespace _21_laivanupotus
 
         static void Main(string[] args)
         {
+            //Luodaan random-muuttujat
             Random Koordinaatti = new Random();
             Random Suuntima = new Random();
+            //Luodaan muuttujat oman laivan koordinaateille, tietokoneen laivan koordinaateille, ammuskoordinaateille, suuntakoordinaateille, laivojen toisten koordinaattien pisteille, ja suunnalle.
             int x= 0, y= 0, z = 0, w = 0, x1 = 0, y1 = 0, z1 = 0,w1 = 0, shoot1, shoot2, suunta;
+            //Lyödään läjä booleaneja.
             bool alus1 = false, alus2 = false, alus3 = false, alus4 = false, error = false, exit = false;
+            //Tässä luodaan koneen aluksen pisteet
             z = KoneLaiva(Koordinaatti);
             w = KoneLaiva(Koordinaatti);
+            //Sitten arvotaan suunnat seuraavalle pisteelle.
             do
             {
                 suunta = Suunta(Suuntima);
@@ -67,25 +73,21 @@ namespace _21_laivanupotus
                     z1 = z;
                     w1 = w - 1;
                 }
+                //Katsotaan, ettei koordinaatti mene koordinaatiston ulkopuolelle
                 if (z1 < 1 || z1 > 5 || w1 < 1 || w1 > 5)
                 {
                     exit = false;
                 }
                 else if (z1 > 0 && z1 < 6 && w1 > 0 && w1 < 6)
                 {
-                    //Console.WriteLine("{0}, {1}", z1, w1);
                     exit = true;
                 }
                 else
                 {
-                    //  Console.WriteLine("Virheellinen suunta");
                     exit = false;
                 }
             }
             while (exit == false);
-
-                //Console.WriteLine("{0}, {1}", z, w);
-
             Console.WriteLine("Asetetaan laiva 5x5-koordinaatistoon!");
             do
             {
@@ -152,6 +154,7 @@ namespace _21_laivanupotus
             exit = false;
             do
             {
+                //erroria käytetään, jotta saadaan ammuttua uudestaan mikäli vastaus on väärässä paikassa
                 error = false;
                 Console.WriteLine("Ammuttava koordinaatti x!");
                 x1 = Read();
@@ -181,6 +184,7 @@ namespace _21_laivanupotus
                 }
                 if (exit == false && error == false)
                 {
+                    //Tietokone ampuu koordinaatteihin aliohjelmalla
                     shoot1 = KoneLaiva(Koordinaatti);
                     shoot2 = KoneLaiva(Koordinaatti);
                     Console.WriteLine("Tietokone ampui koordinaatteihin {0} ja {1}", shoot1, shoot2);
