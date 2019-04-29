@@ -8,6 +8,7 @@ namespace T_14_Huutokauppa
 {
     class Program
     {
+        //Tiedonsyötölle aliohjelma
         private static int Read()
         {
             bool result;
@@ -17,6 +18,7 @@ namespace T_14_Huutokauppa
             result = Int32.TryParse(syote, out number);
             return number;
         }
+        //Simuloidaan huutokauppaa ensin huutojen määrällä, sitten korotusten suuruudella
             private static double HuutoKauppa(double bid)
         {
             int i;
@@ -32,17 +34,13 @@ namespace T_14_Huutokauppa
             final = korotukset;
             return final;
         }
-       /* private static double Edellinen(double edellinen)
-        {
-
-        }*/
         static void Main(string[] args)
         {
             bool exit = false;
             int valinta, myydyt = 0, i;
             string syote, kalleinEsine = "paska";
             double tavoite, maxValue = double.MinValue, total = 0, jaljella;
-
+//Listataan esineet, niiden hinnat ja huutokaupan jälkeiset hinnat esineille.
             List<double> loppuhinnat = new List<double>();
             List<string> esineet = new List<string>();
             List<double> hinnat = new List<double>();
@@ -55,7 +53,7 @@ namespace T_14_Huutokauppa
                 valinta = Read();
                 switch (valinta)
                 {
-
+//Syötetään esine ja sen hinta huutokaupalle, tämän kohdan voi tehdä niin monta kertaa kuin haluaa
                     case 1:
 
                         Console.WriteLine("Esineen nimi:");
@@ -64,6 +62,7 @@ namespace T_14_Huutokauppa
                         Console.WriteLine("Esineen hinta:");
                         hinnat.Add(Read());
                         break;
+                        //Aloitetaan huutokauppa
                     case 2:
 
                         for (i = 0; i < esineet.Count; i++)
@@ -72,13 +71,16 @@ namespace T_14_Huutokauppa
                             loppuhinnat.Add(loppuhinta);
                             Console.WriteLine("Esine: {0}", esineet[i]);
                             Console.WriteLine("Hinta: {0}", loppuhinta);
+                            //Jos hinta ei ole 0 niin esine on myyty, joten voidaan lisätä myyty esine.
                             if (loppuhinta != 0)
                             {
                                 myydyt++;
                             }
                                 Console.WriteLine("Artikkeleja myyty: {0} kpl", myydyt);
+                            //Jos ei ole ensimmäinen tuote, joka on myyty.
                             if (i != 0)
                             {
+                                //Verrataan edellisen tuotteen hintaan ja kerrotaan onko se halvempi vai kalliimpi
                                 if (loppuhinta > HuutoKauppa(hinnat[i - 1]))
                                 {
                                     Console.WriteLine("Edellinen tuote {0} on halvempi kuin uusi tuote", esineet[i-1]);
@@ -89,12 +91,14 @@ namespace T_14_Huutokauppa
                                 }
                                 
                             }
+                            //määritetään kokonaishinta kaikille tuotteille ja verrataan tavoitteeseen
                             total = loppuhinnat.Sum();
                             jaljella = tavoite - total;
                             if (tavoite > total)
                             {
                                 Console.WriteLine("Tavoitteesta on jäljellä {0} euroa", jaljella);
                             } 
+                            // Jos tuotteen loppuhinta on suurempi kuin nykyinen suurin hinta, siitä tuotteesta tulee kallein tuote.
                                 if (loppuhinta > maxValue)
                             {
                                 maxValue = loppuhinta;
@@ -111,10 +115,12 @@ namespace T_14_Huutokauppa
                         }
                         break;
                     case 3:
+                        //Tällä voidaan tehdä uusi tavoite
                         Console.WriteLine("Syötä uusi tavoite");
                         tavoite = Read();
                         break;
                     case 4:
+                        //Poistetaan muistista kaikki
                         hinnat.Clear();
                         esineet.Clear();
                         loppuhinnat.Clear();

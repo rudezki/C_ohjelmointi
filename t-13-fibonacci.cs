@@ -20,6 +20,7 @@ namespace T13_Fibonacci
             }
             if (n >= 2)
             {
+                //Fibonaccin lukujen funktio on tässä
                 return Fibonacci(n - 2) + Fibonacci(n - 1);
             }
             else
@@ -37,6 +38,7 @@ namespace T13_Fibonacci
             Console.WriteLine("Anna luku");
             syote = Console.ReadLine();
             result = Int32.TryParse(syote, out x);
+            //Spämmätään x kappaletta fibonaccin lukuja
             for (i = 0; i <= x; i++)
             {
                 Console.WriteLine(Fibonacci(i));
