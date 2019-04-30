@@ -8,6 +8,7 @@ namespace aliohjelmat_2
 {
     class Program
     {
+        //Pienin() järjestää kolme eri lukua suuruusjärjestykseen ja palauttaa niistä ensimmäisen. Suurin() palauttaa kolmannen luvun.
         private static int Pienin(int eka, int toka, int kolmas)
         {
             List<int> pienin = new List<int>() { eka, toka, kolmas };
