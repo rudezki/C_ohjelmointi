@@ -27,6 +27,7 @@ namespace T_17_Pankkitili
             result = int.TryParse(syote, out number);
             return number;
         }
+        //Aliohjelma tarkastaa kortin numeroa ja palauttaa false jos ei ole oikein
         private static bool InsertCardAndVerify(int card)
         {
             Console.WriteLine("Insert card.");
@@ -40,6 +41,7 @@ namespace T_17_Pankkitili
                 return false;
             }
         }
+        //aliohjelma tarkastaa PIN-koodia kolmesti, ja jos ei ole oikein niin palautetaan "false".
         private static bool InsertPinAndValidate(string card, double PIN)
         {
             bool exit = false;
@@ -63,6 +65,7 @@ namespace T_17_Pankkitili
             while (exit == false && i <= 3);
             return false;
         }
+        //Tarkastetaan onko tilillä rahaa
         private static bool RequestAmountAndVerifyFunds(double requestAmount, double funds)
         {
             if (requestAmount <= funds)
@@ -81,7 +84,7 @@ namespace T_17_Pankkitili
             int card = 666999, PIN = 6969;
             double accountFunds = 500, requestAmount;
             bool exit = false;
-
+//Yksinkertainen looppi jolla joko pääsee nostamaan rahaa tai sitten pääsee alkuun.
             do
             {
                 if (InsertCardAndVerify(card))
