@@ -15,7 +15,8 @@ namespace Harjoitustyö
             try
             {
                 char previousKey = 'g';
-                bool lauseenLoppu = true;
+                
+                bool lauseenLoppu = true, isoKirjain = true;
                 List<string> outputText = new List<string>();
                 string inputText = File.ReadAllText("inputfile.txt");
                 //Tässä käytettäisiin RegExiä, jos haluttaisiin, ettei välilyöntiä oteta huomioon ollenkaan.
@@ -27,22 +28,39 @@ namespace Harjoitustyö
 
                     if (char.IsPunctuation(key))
                     {
-                        outputText.Add(key.ToString());
+                        isoKirjain = true;
                         lauseenLoppu = true;
-                    } else if (!(key == ' ') && lauseenLoppu)
+                        previousKey = key;
+                    }
+                    else if (!(key == ' ') && lauseenLoppu)
                     {
-                        outputText.Add(char.ToUpper(key).ToString());
+                        isoKirjain = true;
                         lauseenLoppu = false;
-                    } else if (char.IsUpper(previousKey) && char.IsUpper(key))
-                    {
-                        outputText.Add(char.ToLower(key).ToString());
                         previousKey = key;
                     } else
                     {
-                        outputText.Add(key.ToString());
+                        isoKirjain = false;
                         previousKey = key;
                     }
-                    
+                    if (isoKirjain)
+                    {
+                        outputText.Add(char.ToUpper(previousKey).ToString());
+                    } else if (!isoKirjain && char.IsLower(key) && char.IsUpper(previousKey))
+                    {
+                        outputText.Add(char.ToLower(previousKey).ToString());
+                    } else if (!isoKirjain && char.IsUpper(key) && char.IsLower(previousKey))
+                    {
+                        outputText.Add(char.ToLower(previousKey).ToString());
+                    } else if (!isoKirjain && char.IsUpper(key) && char.IsUpper(previousKey))
+                    {
+                        outputText.Add(char.ToLower(previousKey).ToString());
+                    } else if (!isoKirjain && char.IsLower(key) && char.IsLower(previousKey))
+                    {
+                        outputText.Add(char.ToLower(previousKey).ToString());
+                    } else
+                    {
+                        outputText.Add(previousKey.ToString());
+                    }
 
                 }
 
