@@ -14,7 +14,8 @@ namespace Harjoitustyö
         {
             try
             {
-                char previousKey = '.';
+                char previousKey = 'g';
+                bool lauseenLoppu = true;
                 List<string> outputText = new List<string>();
                 string inputText = File.ReadAllText("inputfile.txt");
                 //Tässä käytettäisiin RegExiä, jos haluttaisiin, ettei välilyöntiä oteta huomioon ollenkaan.
@@ -24,20 +25,19 @@ namespace Harjoitustyö
                 foreach (char key in inputText)
                 {
 
-                    if (char.IsPunctuation(previousKey))
+                    if (char.IsPunctuation(key))
+                    {
+                        outputText.Add(key.ToString());
+                        lauseenLoppu = true;
+                    } else if (!(key == ' ') && lauseenLoppu)
                     {
                         outputText.Add(char.ToUpper(key).ToString());
-                        previousKey = key;
+                        lauseenLoppu = false;
                     } else if (char.IsUpper(previousKey) && char.IsUpper(key))
                     {
                         outputText.Add(char.ToLower(key).ToString());
                         previousKey = key;
-                    }
-                    else if (key == ' ')
-                    {
-                        outputText.Add(key.ToString());
-                    }
-                    else
+                    } else
                     {
                         outputText.Add(key.ToString());
                         previousKey = key;
