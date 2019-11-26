@@ -25,17 +25,16 @@ namespace Harjoitustyö
 
                 foreach (char key in inputText)
                 {
-
-                    if (char.IsPunctuation(key))
+                    //Kaksi peräkkäistä if-lauseketta, että tiedetään, miten seuraavan kirjaimen tulee käyttäytyä, nykyisen perusteella.
+                    if (key == '.' || key == '?' || key == ':' || key == '!' || key == '\n')
                     {
-                        isoKirjain = true;
+                        isoKirjain = false;
                         lauseenLoppu = true;
                         previousKey = key;
                     }
-                    else if (!(key == ' ') && lauseenLoppu)
+                    else if (lauseenLoppu && (!(key == ' ')))
                     {
                         isoKirjain = true;
-                        lauseenLoppu = false;
                         previousKey = key;
                     } else
                     {
@@ -45,19 +44,17 @@ namespace Harjoitustyö
                     if (isoKirjain)
                     {
                         outputText.Add(char.ToUpper(previousKey).ToString());
-                    } else if (!isoKirjain && char.IsLower(key) && char.IsUpper(previousKey))
+                        lauseenLoppu = false;
+                    }
+                    else if (!isoKirjain && char.IsLower(key) && char.IsUpper(previousKey))
                     {
                         outputText.Add(char.ToLower(previousKey).ToString());
-                    } else if (!isoKirjain && char.IsUpper(key) && char.IsLower(previousKey))
+                    }
+                    else if (!isoKirjain && char.IsUpper(key) && char.IsUpper(previousKey))
                     {
                         outputText.Add(char.ToLower(previousKey).ToString());
-                    } else if (!isoKirjain && char.IsUpper(key) && char.IsUpper(previousKey))
-                    {
-                        outputText.Add(char.ToLower(previousKey).ToString());
-                    } else if (!isoKirjain && char.IsLower(key) && char.IsLower(previousKey))
-                    {
-                        outputText.Add(char.ToLower(previousKey).ToString());
-                    } else
+                    }
+                    else
                     {
                         outputText.Add(previousKey.ToString());
                     }
