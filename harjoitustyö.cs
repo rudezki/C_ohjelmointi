@@ -12,7 +12,6 @@ namespace harjoitustyö2
             try
             {
                 char previousKey = '.', previousPrevious = '.';
-
                 bool isoKirjain = true, lauseenLoppu = true, onEdellinen = false, onEdellinenEdellinen = false;
                 List<string> outputText = new List<string>();
                 string inputText = File.ReadAllText("inputfile.txt");
@@ -20,53 +19,53 @@ namespace harjoitustyö2
 
                 foreach (char key in inputText)
                 {
-                    //Kaksi peräkkäistä if-lauseketta, että tiedetään, miten seuraavan kirjaimen tulee käyttäytyä, nykyisen perusteella.
-                    //Jos kirjain on jokin näistä välimerkeistä, on virke loppunut ja seuraavan kirjaimen pitäisi olla iso.
+                    //Jos edellistä kirjainta ei ole, niin annetaan previousKey:lle arvo.
                     if (!onEdellinen)
                     {
                         previousKey = key;
-                        previousPrevious = previousKey;
                         onEdellinen = true;
-                    } else if (!onEdellinenEdellinen && onEdellinen)
+                    }
+                    //Jos edellinen arvo on, mutta ei edellisen edellistä, niin annetaan previousKey:lle ja previousPrevious:lle arvot
+                    else if (!onEdellinenEdellinen && onEdellinen)
                     {
                         previousKey = key;
                         previousPrevious = previousKey;
                         onEdellinenEdellinen = true;
-                    } else
+                    }
+                    //Jos arvot ovat olemassa, ei tehdä mitään, koska ei tarvita
+                    else
                     {
 
                     }
-                    
+                    //Jos edellisin merkki on virkkeen päättävä tai uusi kappale, vaihdetaan lauseenLoppu positiiviseksi, että tiedetään seuraavan kirjaimen olevan suuri
                     if (previousPrevious == '.' || previousPrevious == '?' || previousPrevious == ':' || previousPrevious == '!' || previousPrevious == '\n')
                     {
                         lauseenLoppu = true;
                     }
+                    //Jos sana alkaa isolla ja seuraava kirjain on pieni, oletetaan sen olevan erisnimi, ja yritetään aloittaa se isolla.
                     if (onEdellinen && !char.IsPunctuation(previousKey) && !(previousKey == ' ') && char.IsUpper(previousKey) && char.IsLower(key))
                     {
                         isoKirjain = true;
+                    //Jos taas ei ole sanan alku kyseessä (edellisin kirjain ei ole välilyönti) niin oletetaan, ettei tule isoa kirjainta.
                     } else if (onEdellinen && !(previousPrevious == ' ') && char.IsUpper(previousKey) && char.IsLower(key))
                     {
                         isoKirjain = false;
                     }
-                    if (isoKirjain && onEdellinen)
+                    //Jos lause on alkanut, tai kyseessä on erisnimi, niin keskimmäinen previousKey lisätään isolla listaan, ja laitetaan isoKirjain ja lauseenLoppu pois päältä, ettei seuraava kirjain ole isolla.
+                    if ((isoKirjain || lauseenLoppu) && onEdellinen)
                     {
                         outputText.Add(char.ToUpper(previousKey).ToString());
                         previousKey = key;
                         previousPrevious = previousKey;
                         isoKirjain = false;
-                    }
-                    else if (onEdellinen && lauseenLoppu)
-                    {
-                        outputText.Add(char.ToUpper(previousKey).ToString());
-                        previousKey = key;
-                        previousPrevious = previousKey;
                         lauseenLoppu = false;
-                    } else if (onEdellinen && !isoKirjain)
+                    }
+                    //Jos ei ole kumpikaan, niin lisätään pienellä kirjain.
+                     else if (onEdellinen && !isoKirjain && !lauseenLoppu)
                     {
                         outputText.Add(char.ToLower(previousKey).ToString());
                         previousKey = key;
                         previousPrevious = previousKey;
-                        isoKirjain = false;
                     } 
 
 
@@ -83,12 +82,13 @@ namespace harjoitustyö2
                 }
                 
                 string[] allLines = File.ReadAllLines("outputfile.txt");
+
+                //Jos halutaan tietää mitä ollaan kirjoitettu, niin käytetään tätä koodinpätkää 
                 foreach (string line in allLines)
                 {
                     Console.WriteLine(line);
                 }
                 Console.ReadKey();
-                //Jos halutaan tietää mitä ollaan kirjoitettu, niin käytetään tätä koodinpätkää 
 
             }
             catch (IOException e)
